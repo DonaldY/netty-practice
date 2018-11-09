@@ -1,0 +1,35 @@
+# maven #
+target
+
+# eclipse #
+.settings
+.project
+.classpath
+.log
+
+# windows #
+Thumbs.db
+
+# Mac #
+.DS_Store
+
+# Package Files #
+*.war
+*.ear
+
+# idea #
+*.iml
+.idea/
+overlays
+bin
+
+
+a_little_config_pro.txt
+*.log
+
+css
+fonts
+image
+js
+index.html
+
