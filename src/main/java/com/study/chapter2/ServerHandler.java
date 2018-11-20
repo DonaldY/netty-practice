@@ -1,4 +1,46 @@
 package com.study.chapter2;
 
-public class ServerHandler {
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import java.util.concurrent.TimeUnit;
+
+public class ServerHandler extends ChannelInboundHandlerAdapter {
+
+    public void channelActice(ChannelHandlerContext ctx) {
+        System.out.println("channelActive");
+    }
+
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) {
+        System.out.println("channelRegistered");
+    }
+
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) {
+        System.out.println("handlerAdded");
+    }
+
+    @Override
+    public void channelRead(final ChannelHandlerContext ctx, Object msg) throws Exception {
+
+        super.channelRead(ctx, msg);
+
+        new Thread(new Runnable() {
+            public void run() {
+                String result = loadFromDB();
+
+                ctx.channel().writeAndFlush(result);
+                ctx.executor().schedule(new Runnable() {
+                    public void run() {
+                        // ...
+                    }
+                }, 1, TimeUnit.SECONDS);
+            }
+        }).start();
+    }
+
+    private String loadFromDB() {
+        return "hello world!";
+    }
 }
