@@ -14,26 +14,29 @@ public class Server {
 
         int port = 8000;
 
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workGroup = new NioEventLoopGroup();
+        //创建两个线程组
+        EventLoopGroup bossGroup = new NioEventLoopGroup(); // 用来接收客户端的连接
+        EventLoopGroup workGroup = new NioEventLoopGroup(); // 用来进行SocketChannel的网络读写
 
         try {
 
+            // 辅助启动类
             ServerBootstrap b = new ServerBootstrap();
 
-            b.group(bossGroup, workGroup)
-                    .channel(NioServerSocketChannel.class)
+            b.group(bossGroup, workGroup)  // 注册两个线程组
+                    .channel(NioServerSocketChannel.class) // 通道, 指定 NIO 传输 Channel
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 
-                            ch.pipeline().addLast(new ServerHandler());
+                            // 调用链
+                            ch.pipeline().addLast(new ServerHandler()); // 实现业务逻辑
                         }
                     });
 
-            ChannelFuture f = b.bind(port).sync();
+            ChannelFuture f = b.bind(port).sync(); // bind是异步过程, 绑定接口, 阻塞
 
-            f.channel().closeFuture().sync();
+            f.channel().closeFuture().sync(); // 阻塞, 直到 Channel 关闭
 
         } catch(Exception e){
 
@@ -42,7 +45,6 @@ public class Server {
         } finally {
 
             bossGroup.shutdownGracefully();
-
             workGroup.shutdownGracefully();
         }
     }
