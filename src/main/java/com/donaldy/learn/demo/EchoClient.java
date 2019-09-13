@@ -35,8 +35,8 @@ public class EchoClient {
                         }
                     });
 
-            ChannelFuture f = b.connect().sync();
-            f.channel().closeFuture().sync();
+            ChannelFuture f = b.connect().sync(); // 连接到远程节点, 阻塞等待直到连接完成
+            f.channel().closeFuture().sync(); // 阻塞, 直到 Channel 关闭
         } catch (Exception e) {
 
             e.printStackTrace();
