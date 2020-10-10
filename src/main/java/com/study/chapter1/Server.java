@@ -30,11 +30,7 @@ public class Server {
      * 3. 即使Java虚拟机（JVM）在物理上可以支持非常大数量的线程，但是远在达到极限之前，上下文切换所带来的开销就会带来麻烦。
      */
     public void start() {
-        new Thread(new Runnable() {
-            public void run() {
-                doStart();
-            }
-        }).start();
+        new Thread(() -> doStart()).start();
     }
 
     private void doStart() {
