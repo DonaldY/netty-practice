@@ -10,6 +10,8 @@ public class Client {
     private static final int SLEEP_TIME = 5000;
 
     public static void main(String[] args) throws IOException {
+
+        // Socket 连接实际上映射为一个 File Descriptor
         final Socket socket = new Socket(HOST, PORT);
 
         new Thread(() -> {
