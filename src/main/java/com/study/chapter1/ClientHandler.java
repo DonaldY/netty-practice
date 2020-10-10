@@ -4,22 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-public class ClientHandler {
+class ClientHandler {
 
-    public static final int MAX_DATA_LEN = 1024;
+    private static final int MAX_DATA_LEN = 1024;
     private final Socket socket;
 
-    public ClientHandler(Socket socket) {
+    ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
-    public void start() {
+    void start() {
         System.out.println("新客户端接入");
-        new Thread(new Runnable() {
-            public void run() {
-                doStart();
-            }
-        }).start();
+        new Thread(this::doStart).start();
     }
 
     private void doStart() {

@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * test
- */
-public class Server {
+class Server {
 
     private ServerSocket serverSocket;
 
-    public Server(int port) {
+    Server(int port) {
         try {
             // 创建一个新的ServerSocket，用以监听指定端口上的连接请求
             this.serverSocket = new ServerSocket(port);
@@ -29,8 +26,8 @@ public class Server {
      * 2. 需要为每个线程的调用栈都分配内存，其默认值大小区间为 64KB 到 1MB，具体取决与操作系统。
      * 3. 即使Java虚拟机（JVM）在物理上可以支持非常大数量的线程，但是远在达到极限之前，上下文切换所带来的开销就会带来麻烦。
      */
-    public void start() {
-        new Thread(() -> doStart()).start();
+    void start() {
+        new Thread(this::doStart).start();
     }
 
     private void doStart() {
