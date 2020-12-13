@@ -15,14 +15,15 @@ public class HttpServer03 {
 
     public static void main(String[] args) throws IOException {
 
-        ServerSocket serverSocket = new ServerSocket(8803);
         ExecutorService executorService = Executors.newFixedThreadPool(40);
+        final ServerSocket serverSocket = new ServerSocket(8803);
         while (true) {
-
-            final Socket socket = serverSocket.accept();
-            new Thread(() -> {
-                service(socket);
-            }).start();
+            try {
+                final Socket socket = serverSocket.accept();
+                executorService.execute(() -> service(socket));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -32,8 +33,10 @@ public class HttpServer03 {
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             printWriter.println("HTTP/1.1 200 OK");
             printWriter.println("Content-Type:text/html;charset=utf-8");
+            String body = "hello,nio";
+            printWriter.println("Content-Length:" + body.getBytes().length);
             printWriter.println();
-            printWriter.write("hello,nio");
+            printWriter.write(body);
             printWriter.close();
             socket.close();
         } catch (InterruptedException | IOException e) {
