@@ -4,12 +4,13 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * @author donald
  * @date 2021/06/21
  */
-public class NettyClientHandler extends ChannelHandlerAdapter {
+public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     private ByteBuf requestBuffer;
 
