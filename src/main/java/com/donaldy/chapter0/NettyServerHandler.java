@@ -18,7 +18,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
         String request = new String(requestBytes, "UTF-8");
         System.out.println("接收到的请求：" + request);
 
-        String response = "收到你的请求了，返回响应给你";
+        String response = "你好，我收到你的请求了，返回响应给你";
         ByteBuf responseBuffer = Unpooled.copiedBuffer(response.getBytes());
         ctx.write(responseBuffer);
 
