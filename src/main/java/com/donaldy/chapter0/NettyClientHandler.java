@@ -14,14 +14,12 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
     private ByteBuf requestBuffer;
 
     public NettyClientHandler() {
-
-        byte[] requestBytes = "".getBytes();
+        byte[] requestBytes = "你好，我发送第一条消息".getBytes();
         requestBuffer = Unpooled.buffer(requestBytes.length);
         requestBuffer.writeBytes(requestBytes);
     }
 
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
         ctx.writeAndFlush(requestBuffer);
     }
 
