@@ -34,7 +34,7 @@ public class NettyServer {
 
                     });
 
-            ChannelFuture channelFuture = serverBootstrap.bind(50070).sync(); // 同步等待启动服务器监控端口
+            ChannelFuture channelFuture = serverBootstrap.bind(8888).sync(); // 同步等待启动服务器监控端口
 
             channelFuture.channel().closeFuture().sync(); // 同步等待关闭启动服务器的结果
         } catch (Exception e) {
