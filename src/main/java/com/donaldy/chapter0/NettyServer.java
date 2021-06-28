@@ -25,6 +25,9 @@ public class NettyServer {
                     .group(parentGroup, childGroup)
                     .channel(NioServerSocketChannel.class)  // 监听端口的ServerSocketChannel
                     .option(ChannelOption.SO_BACKLOG, 1024)
+                    .option(ChannelOption.SO_RCVBUF, 262144)
+                    .option(ChannelOption.SO_SNDBUF, 262144)
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() { // 处理每个连接的SocketChannel
 
                         @Override
