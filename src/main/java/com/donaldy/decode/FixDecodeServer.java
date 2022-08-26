@@ -30,7 +30,7 @@ public class FixDecodeServer {
 
                         @Override
                         public void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new FixedLengthFrameDecoder(10));
+                            ch.pipeline().addLast(new FixedLengthFrameDecoder(3));
                             ch.pipeline().addLast(new EchoServerHandler());
                         }
                     });
