@@ -31,7 +31,7 @@ public class DelimiterDecodeServer {
                         @Override
                         public void initChannel(SocketChannel ch) {
                             ByteBuf delimiter = Unpooled.copiedBuffer("&".getBytes());
-                            ch.pipeline().addLast(new DelimiterBasedFrameDecoder(10, true, true, delimiter));
+                            ch.pipeline().addLast(new DelimiterBasedFrameDecoder(10, delimiter));
                             ch.pipeline().addLast(new EchoServerHandler());
                         }
                     });
