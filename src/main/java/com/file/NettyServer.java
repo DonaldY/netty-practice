@@ -12,6 +12,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 /**
  * @author donald
  * @date 2022/03/18
+ *
+ * https://www.baeldung.com/java-netty-http-server
  */
 public class NettyServer {
 
